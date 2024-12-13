@@ -13,15 +13,15 @@ import { CreateIncomeForm } from "./form";
 
 export default function NewPageIncome() {
   return (
-    <div>
+    <div className="px-4">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/awarded">Premiados</BreadcrumbLink>
+            <BreadcrumbLink href="/income">Rendas</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Novo Premiado</BreadcrumbPage>
+            <BreadcrumbPage>Nova Renda</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -35,7 +35,7 @@ export default function NewPageIncome() {
         </div>
       </div>
 
-      <main className="mt-16">
+      <main className="mt-16 flex justify-start">
         <CreateIncomeForm />
       </main>
     </div>

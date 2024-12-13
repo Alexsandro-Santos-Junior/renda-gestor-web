@@ -3,7 +3,6 @@
 import { auth } from "@clerk/nextjs/server";
 
 export type CreateIncomeRequest = {
-  // userId: string;
   valor: number;
   data: Date;
   fonte: string;
@@ -13,18 +12,13 @@ export type CreateIncomeRequest = {
 };
 
 export async function createIncome(data: CreateIncomeRequest) {
-  console.log("Iniciando createRenda com os dados:", data);
   const { getToken, userId } = auth();
   const token = await getToken();
-
-  console.log("Token obtido:", token);
-  console.log("UserId obtido:", userId);
 
   const formattedData = {
     ...data,
     data: data.data.toISOString().split("T")[0],
   };
-  console.log("Dados formatados antes do envio:", formattedData);
 
   if (
     !formattedData.valor ||
@@ -58,7 +52,7 @@ export async function createIncome(data: CreateIncomeRequest) {
     throw new Error(errorData.message);
   }
 
-  const result = await response.json();
-  console.log("Resposta da API:", result);
-  return result;
+  // const result = await response.json();
+
+  // return result;
 }

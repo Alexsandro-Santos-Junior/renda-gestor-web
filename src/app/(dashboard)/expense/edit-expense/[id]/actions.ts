@@ -78,7 +78,6 @@ type UpdateExpenseRequest = {
 export async function updateExpense(data: UpdateExpenseRequest) {
   const { getToken } = auth();
   const token = await getToken();
-  console.log(`esse e o token do actions`, token);
 
   const response = await fetch(
     `http://localhost:3000/expense/${data.params.id}`,

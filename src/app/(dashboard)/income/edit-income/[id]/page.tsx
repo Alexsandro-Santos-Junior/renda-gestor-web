@@ -24,7 +24,7 @@ export default async function EditIncomePage({ params }: PageProps) {
           defaultValues={{
             ...income,
             valor: income.valor,
-            // data: income.data,
+            data: income.data,
             fonte:
               income.fonte === "SALARIO" ||
               income.fonte === "FREELANCE" ||

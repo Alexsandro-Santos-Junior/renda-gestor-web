@@ -1,6 +1,5 @@
 "use client";
 
-import { z } from "zod";
 import { Button, buttonVariants } from "~/components/ui/button";
 import {
   Form,
@@ -11,7 +10,6 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
   SelectContent,
@@ -19,52 +17,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
-
-const schema = z.object({
-  data: z.date(),
-  valor: z.coerce.number().min(1, "Digite o valor recebido por esta fonte"),
-  fonte: z.enum(["SALARIO", "FREELANCE", "INVESTIMENTO", "ALUGUEL", "OUTROS"]),
-  categoria: z.enum([
-    "RENDA_PRINCIPAL",
-    "RENDA_SECUNDARIA",
-    "ALUGUEL",
-    "COMISSAO",
-    "JUROS",
-    "BONUS",
-    "OUTROS",
-  ]),
-  forma_pagamento: z.enum([
-    "DINHEIRO",
-    "CARTAO_DE_CREDITO",
-    "CARTAO_DE_DEBITO",
-    "TRANSFERENCIA",
-    "PIX",
-    "BOLETO",
-  ]),
-  recorrencia: z.enum([
-    "UNICO",
-    "DIARIO",
-    "SEMANAL",
-    "MENSAL",
-    "TRIMESTRAL",
-    "ANUAL",
-  ]),
-});
-
-export type SaveIncomeFormSchema = z.infer<typeof schema>;
-
-function formatCurrency(value: any) {
-  if (!value) return "";
-  const number = parseInt(value, 10);
-  return number
-    ? (number / 100).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    : "";
-}
+import { useSaveIncomeForm, SaveIncomeFormSchema } from "./config";
 
 export function SaveIncomeForm({
   action,
@@ -73,13 +27,10 @@ export function SaveIncomeForm({
   action: (data: SaveIncomeFormSchema) => Promise<void>;
   defaultValues?: Partial<SaveIncomeFormSchema>;
 }) {
-  const form = useForm<SaveIncomeFormSchema>({
-    resolver: zodResolver(schema),
-    defaultValues,
-  });
+  const form = useSaveIncomeForm(defaultValues as SaveIncomeFormSchema);
 
   return (
-    <div className="flex ">
+    <div className="flex max-w-screen-md px-2 mb-2">
       <Form {...form}>
         <form
           method="POST"
@@ -131,6 +82,7 @@ export function SaveIncomeForm({
                                   <SelectItem value="SALARIO">
                                     SALÁRIO
                                   </SelectItem>
+                                  <SelectItem value="VENDA">VENDA</SelectItem>
                                   <SelectItem value="OUTROS">OUTROS</SelectItem>
                                 </SelectContent>
                               </Select>
@@ -169,6 +121,7 @@ export function SaveIncomeForm({
                                   <SelectItem value="RENDA_SECUNDARIA">
                                     RENDA SECUNDÁRIA
                                   </SelectItem>
+                                  <SelectItem value="VENDA">VENDA</SelectItem>
                                   <SelectItem value="OUTROS">OUTROS</SelectItem>
                                 </SelectContent>
                               </Select>
@@ -189,7 +142,7 @@ export function SaveIncomeForm({
                                 {...field}
                                 placeholder="Digite o valor"
                                 className="w-full"
-                                value={formatCurrency(field.value)}
+                                value={field.value}
                                 onChange={(e) => {
                                   const unformattedValue =
                                     e.target.value.replace(/\D/g, "");
@@ -292,7 +245,7 @@ export function SaveIncomeForm({
                           <FormItem>
                             <FormLabel>Data</FormLabel>
                             <FormControl>
-                              <input
+                              <Input
                                 type="date"
                                 value={
                                   field.value instanceof Date &&

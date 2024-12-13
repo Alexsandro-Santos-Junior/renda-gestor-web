@@ -10,7 +10,13 @@ type FormaPagamento =
   | "PIX"
   | "BOLETO";
 
-type Fonte = "SALARIO" | "FREELANCE" | "INVESTIMENTO" | "ALUGUEL" | "OUTROS";
+type Fonte =
+  | "SALARIO"
+  | "FREELANCE"
+  | "INVESTIMENTO"
+  | "ALUGUEL"
+  | "VENDA"
+  | "OUTROS";
 
 type Categoria =
   | "RENDA_PRINCIPAL"
@@ -19,6 +25,7 @@ type Categoria =
   | "COMISSAO"
   | "ALUGUEL"
   | "JUROS"
+  | "VENDA"
   | "OUTROS";
 
 type Recorrencia =

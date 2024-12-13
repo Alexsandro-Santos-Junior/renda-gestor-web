@@ -12,7 +12,7 @@ import { CreateExpenseForm } from "./form";
 
 export default function NewPageExpense() {
   return (
-    <div>
+    <div className="px-4">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -34,7 +34,7 @@ export default function NewPageExpense() {
         </div>
       </div>
 
-      <main className="mt-16">
+      <main className="mt-16 flex justify-start">
         <CreateExpenseForm />
       </main>
     </div>

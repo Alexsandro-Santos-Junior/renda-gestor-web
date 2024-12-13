@@ -3,9 +3,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { SaveIncomeForm, SaveIncomeFormSchema } from "~/forms/save-income";
+
 import { useToast } from "~/hooks/use-toast";
 import { updateIncome } from "./actions";
+import { SaveIncomeFormSchema } from "~/forms/save-income/config";
+import { SaveIncomeForm } from "~/forms/save-income";
 
 interface EditIncomeFormProps {
   defaultValues?: Partial<SaveIncomeFormSchema>;

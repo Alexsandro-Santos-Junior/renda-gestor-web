@@ -3,9 +3,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-import { SaveExpenseForm, SaveExpenseFormSchema } from "~/forms/save-expense";
 import { useToast } from "~/hooks/use-toast";
 import { updateExpense } from "./actions";
+import { SaveExpenseFormSchema } from "~/forms/save-expense/config";
+import { SaveExpenseForm } from "~/forms/save-expense";
 
 interface EditExpenseFormProps {
   defaultValues?: Partial<SaveExpenseFormSchema>;

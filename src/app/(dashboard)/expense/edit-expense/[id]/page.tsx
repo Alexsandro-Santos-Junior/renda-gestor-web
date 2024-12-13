@@ -14,9 +14,9 @@ export default async function EditExpensePage({ params }: PageProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Editar Renda</h1>
+      <h1 className="text-2xl font-semibold">Editar Despesa</h1>
       <p className="mt-2 text-muted-foreground">
-        Atualize as informações da sua renda abaixo.
+        Atualize as informações da sua despesa abaixo.
       </p>
 
       <div className="mt-4">
@@ -29,7 +29,6 @@ export default async function EditExpensePage({ params }: PageProps) {
               expense.despesa === "MORADIA" ||
               expense.despesa === "CONDOMINIO" ||
               expense.despesa === "ALUGUEL" ||
-              expense.despesa === "SUPERMERCADO" ||
               expense.despesa === "AGUA" ||
               expense.despesa === "LUZ" ||
               expense.despesa === "GAS" ||
@@ -38,6 +37,10 @@ export default async function EditExpensePage({ params }: PageProps) {
               expense.despesa === "PLANO_DE_SAUDE" ||
               expense.despesa === "SEGURO_DE_VIDA" ||
               expense.despesa === "INVESTIMENTO" ||
+              expense.despesa === "TARIFAS_BANCARIAS" ||
+              expense.despesa === "PLANO_CELULAR" ||
+              expense.despesa === "IPVA" ||
+              expense.despesa === "SUPERMERCADO" ||
               expense.despesa === "CARTAO_DE_CREDITO" ||
               expense.despesa === "COMBUSTIVEL" ||
               expense.despesa === "FARMACIA" ||
@@ -49,12 +52,11 @@ export default async function EditExpensePage({ params }: PageProps) {
               expense.despesa === "FEIRA" ||
               expense.despesa === "LAZER" ||
               expense.despesa === "SALAO" ||
-              expense.despesa === "TARIFAS_BANCARIAS" ||
-              expense.despesa === "PLANO_CELULAR" ||
-              expense.despesa === "IPVA" ||
               expense.despesa === "CONSULTA_MEDICA" ||
               expense.despesa === "CURSO" ||
-              expense.despesa === "DIVERSOS",
+              expense.despesa === "DIVERSOS"
+                ? expense.despesa
+                : undefined,
             descricao: expense.descricao,
             categoria:
               expense.categoria === "ALIMENTACAO" ||
@@ -118,6 +120,6 @@ async function getExpenseById(id: string): Promise<Expense> {
     throw new Error(errorData.message || "Erro ao buscar a renda.");
   }
   const data = await response.json();
-  console.log(data);
+
   return data;
 }

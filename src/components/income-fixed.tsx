@@ -17,7 +17,7 @@ interface IncomeTableProps {
   income: Income[];
 }
 
-export default function IncomeTable({ income }: IncomeTableProps) {
+export default function IncomeFixedTable({ income }: IncomeTableProps) {
   const [data, setData] = useState<Income[]>(income);
 
   return (
@@ -33,7 +33,6 @@ export default function IncomeTable({ income }: IncomeTableProps) {
             <TableRow>
               <TableHead className="text-center">Fonte</TableHead>
               <TableHead className="text-center">Categoria</TableHead>
-              <TableHead className="text-center">Data</TableHead>
               <TableHead className="text-center">Valor</TableHead>
               <TableHead className="text-center">
                 Forma de Recebimento
@@ -47,13 +46,6 @@ export default function IncomeTable({ income }: IncomeTableProps) {
               <TableRow className="hover:bg-slate-100">
                 <TableCell className="text-center">{item.fonte}</TableCell>
                 <TableCell className="text-center">{item.categoria}</TableCell>
-                <TableCell className="text-center">
-                  {new Intl.DateTimeFormat("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  }).format(new Date(item.data))}
-                </TableCell>
                 <TableCell className="text-center">
                   {new Intl.NumberFormat("pt-BR", {
                     style: "currency",

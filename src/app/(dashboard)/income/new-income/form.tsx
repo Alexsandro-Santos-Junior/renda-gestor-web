@@ -2,9 +2,10 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { SaveIncomeForm, SaveIncomeFormSchema } from "~/forms/save-income";
 import { useToast } from "~/hooks/use-toast";
 import { createIncome } from "./actions";
+import { SaveIncomeFormSchema } from "~/forms/save-income/config";
+import { SaveIncomeForm } from "~/forms/save-income";
 
 export function CreateIncomeForm() {
   const { toast } = useToast();

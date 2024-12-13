@@ -2,16 +2,17 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { SaveExpenseForm, SaveExpenseFormSchema } from "~/forms/save-expense";
 import { useToast } from "~/hooks/use-toast";
-import { createExpense } from "./actions";
+import { createExpenseFixed } from "./actions";
+import { SaveExpenseFormSchema } from "~/forms/save-expense/config";
+import { SaveExpenseForm } from "~/forms/save-expense";
 
 export function CreateExpenseForm() {
   const { toast } = useToast();
   const router = useRouter();
 
   const createExpenseMutation = useMutation({
-    mutationFn: createExpense,
+    mutationFn: createExpenseFixed,
     onSuccess: () => {
       toast({
         description: "Nova despesa registrada com sucesso.",
@@ -26,8 +27,7 @@ export function CreateExpenseForm() {
     },
   });
 
-  async function handleSaveExpense(data: SaveExpenseFormSchema) {
-    //console.log("Dados do formulário:", data);
+  async function handleSaveExpenseFixed(data: SaveExpenseFormSchema) {
     await createExpenseMutation.mutateAsync({
       valor: data.valor,
       data: data.data,
@@ -41,7 +41,7 @@ export function CreateExpenseForm() {
 
   return (
     <SaveExpenseForm
-      action={handleSaveExpense}
+      action={handleSaveExpenseFixed}
       defaultValues={{
         valor: 100,
         data: new Date(),

@@ -17,10 +17,9 @@ import { getExpenseDetails, getIncomeAndExpenses } from "./actions";
 export default function Page() {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // Para controle de loading
+  const [isLoading, setIsLoading] = useState(true);
   const [expenseDetails, setExpenseDetails] = useState([]);
 
-  // Função para calcular a diferença (sobra)
   const calculateRemaining = (income: number, expense: number) => {
     return income - expense;
   };
@@ -64,12 +63,12 @@ export default function Page() {
   const currentMonthName = monthNames[currentDate.getMonth()];
 
   if (isLoading) {
-    return <div>Carregando...</div>; // Exibe um loading enquanto os dados são buscados
+    return <div>Carregando...</div>;
   }
 
   return (
-    <div className="space-y-6 bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-gray-600">
+    <div className="space-y-6 bg-white px-4">
+      <h1 className="text-2xl font-bold text-gray-600">
         Resumo Financeiro de {currentMonthName}
       </h1>
 

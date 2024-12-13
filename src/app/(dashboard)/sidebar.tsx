@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { navigationItems } from "./navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { navigationItems } from "./navigation";
 
 const isActiveSection = (currentPath: string, sectionPath: string) => {
   if (sectionPath === "/") {
@@ -18,31 +16,19 @@ const isActiveSection = (currentPath: string, sectionPath: string) => {
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { user } = useUser();
 
   return (
-    <aside className="flex w-72 flex-col border-r bg-blue-100">
-      <div className="mx-8 mt-12 flex h-20 items-center justify-center">
-        <Image
-          className="dark:invert"
-          src="/logo-name.svg"
-          alt="logo"
-          width={300}
-          height={100}
-          priority
-        />
-      </div>
-
-      <nav className="flex-1 overflow-y-auto pt-8">
+    <aside className="flex w-48 flex-col bg-white px-1">
+      <nav className="flex-1 overflow-y-auto">
         <ul>
           {navigationItems.map((item) => (
-            <li key={item.title}>
+            <li key={item.title} className="mb-1 last:mb-0">
               <Link href={item.href}>
                 <div
-                  className={`flex items-center gap-2 px-8 py-3  ${
+                  className={`flex items-center gap-2 px-7 py-3  ${
                     isActiveSection(pathname, item.href)
-                      ? "bg-green-300 text-white"
-                      : "hover:bg-green-100 hover:text-green-600"
+                      ? "bg-green-300 text-white rounded-xl"
+                      : "hover:bg-green-100 hover:text-green-600 rounded-xl"
                   }`}
                 >
                   <item.icon className="h-5 w-5" />
@@ -53,28 +39,6 @@ export function Sidebar() {
           ))}
         </ul>
       </nav>
-
-      <section className="border-t p-8 border-slate-100">
-        <div className="flex flex-col">
-          {user ? (
-            <>
-              <div className="mb-4 flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-accent">
-                  <UserButton />
-                </div>
-
-                <span className="text-sm font-medium text-black">
-                  {user.fullName}
-                </span>
-              </div>
-            </>
-          ) : (
-            <p className="text-sm text-gray-500">
-              Nenhum utilizador encontrado.
-            </p>
-          )}
-        </div>
-      </section>
     </aside>
   );
 }

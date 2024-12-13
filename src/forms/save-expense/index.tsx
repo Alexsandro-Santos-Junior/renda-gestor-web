@@ -1,6 +1,5 @@
 "use client";
 
-import { z } from "zod";
 import { Button, buttonVariants } from "~/components/ui/button";
 import {
   Form,
@@ -11,7 +10,6 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Select,
   SelectContent,
@@ -19,85 +17,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { SaveExpenseFormSchema, useSaveExpenseForm } from "./config";
 
-const schema = z.object({
-  data: z.date(),
-  descricao: z.string(),
-  valor: z.coerce.number().min(1, "Digite o valor recebido por esta fonte"),
-  despesa: z.enum([
-    "MORADIA",
-    "CONDOMINIO",
-    "ALUGUEL",
-    "SUPERMERCADO",
-    "AGUA",
-    "LUZ",
-    "GAS",
-    "INTERNET",
-    "IPTU",
-    "PLANO_DE_SAUDE",
-    "SEGURO_DE_VIDA",
-    "INVESTIMENTO",
-    "CARTAO_DE_CREDITO",
-    "COMBUSTIVEL",
-    "FARMACIA",
-    "GASTOS_COM_ANIMAIS",
-    "IMPREVISTOS",
-    "ASSINATURA_VIDEO",
-    "ASSINATURA_MUSICA",
-    "PADARIA",
-    "FEIRA",
-    "LAZER",
-    "SALAO",
-    "TARIFAS_BANCARIAS",
-    "PLANO_CELULAR",
-    "IPVA",
-    "CONSULTA_MEDICA",
-    "CURSO",
-    "DIVERSOS",
-  ]),
-  categoria: z.enum([
-    "ALIMENTACAO",
-    "TRANSPORTE",
-    "SAUDE",
-    "EDUCACAO",
-    "LAZER",
-    "HABITACAO",
-    "CONTAS",
-    "VESTUARIO",
-    "OUTROS",
-  ]),
-  forma_pagamento: z.enum([
-    "DINHEIRO",
-    "CARTAO_DE_CREDITO",
-    "CARTAO_DE_DEBITO",
-    "TRANSFERENCIA",
-    "PIX",
-    "BOLETO",
-  ]),
-  recorrencia: z.enum([
-    "UNICO",
-    "DIARIO",
-    "SEMANAL",
-    "MENSAL",
-    "TRIMESTRAL",
-    "ANUAL",
-  ]),
-});
-
-export type SaveExpenseFormSchema = z.infer<typeof schema>;
-
-function formatCurrency(value: any) {
-  if (!value) return "";
-  const number = parseInt(value, 10);
-  return number
-    ? (number / 100).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    : "";
-}
 export function SaveExpenseForm({
   action,
   defaultValues,
@@ -105,13 +27,10 @@ export function SaveExpenseForm({
   action: (data: SaveExpenseFormSchema) => Promise<void>;
   defaultValues?: Partial<SaveExpenseFormSchema>;
 }) {
-  const form = useForm<SaveExpenseFormSchema>({
-    resolver: zodResolver(schema),
-    defaultValues,
-  });
+  const form = useSaveExpenseForm(defaultValues as SaveExpenseFormSchema);
 
   return (
-    <div className="flex">
+    <div className="flex max-w-screen-md px-2 mb-2">
       <Form {...form}>
         <form
           method="POST"
@@ -283,22 +202,9 @@ export function SaveExpenseForm({
                           name="valor"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Valor</FormLabel>
+                              <FormLabel>Digite o valor (R$)</FormLabel>
                               <FormControl>
-                                <Input
-                                  {...field}
-                                  placeholder="Digite o valor"
-                                  className="w-full"
-                                  value={formatCurrency(field.value)}
-                                  onChange={(e) => {
-                                    const unformattedValue =
-                                      e.target.value.replace(/\D/g, "");
-                                    field.onChange(unformattedValue);
-                                  }}
-                                  onBlur={() => {
-                                    field.onBlur();
-                                  }}
-                                />
+                                <Input type="text" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -385,7 +291,6 @@ export function SaveExpenseForm({
                           </FormItem>
                         )}
                       />
-
                       <FormField
                         control={form.control}
                         name="data"
@@ -393,7 +298,7 @@ export function SaveExpenseForm({
                           <FormItem>
                             <FormLabel>Data</FormLabel>
                             <FormControl>
-                              <input
+                              <Input
                                 type="date"
                                 value={
                                   field.value instanceof Date &&
