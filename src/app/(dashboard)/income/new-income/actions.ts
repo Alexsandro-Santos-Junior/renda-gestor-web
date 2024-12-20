@@ -51,8 +51,4 @@ export async function createIncome(data: CreateIncomeRequest) {
     console.error("Erro na resposta da API:", errorData);
     throw new Error(errorData.message);
   }
-
-  // const result = await response.json();
-
-  // return result;
 }

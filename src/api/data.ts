@@ -8,14 +8,17 @@ export async function getIncome(): Promise<Income[]> {
   const token = await getToken();
   // console.log("Token obtido:", token);
   try {
-    const response = await fetch("http://localhost:3000/income", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/income`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -37,14 +40,17 @@ export async function getExpense(): Promise<Expense[]> {
   console.log("Token obtido:", token);
 
   try {
-    const response = await fetch("http://localhost:3000/expense", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/expense`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -66,14 +72,17 @@ export async function getAsset(): Promise<Asset[]> {
   console.log("Token obtido:", token);
 
   try {
-    const response = await fetch("http://localhost:3000/asset", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      cache: "no-store",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/asset`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
