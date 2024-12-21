@@ -27,18 +27,15 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Chamando a função para obter os dados de rendas e despesas
         const financialData = await getIncomeAndExpenses();
         const expenseData = await getExpenseDetails();
 
-        // Atualizando os estados com os valores recebidos da API
         setTotalIncome(financialData?.totalIncomeValue || 0);
         setTotalExpense(financialData?.totalExpenseValue || 0);
         setExpenseDetails(expenseData || []);
       } catch (error) {
-        console.error("Erro ao buscar dados financeiros:", error);
       } finally {
-        setIsLoading(false); // Encerrando o loading após a busca
+        setIsLoading(false);
       }
     };
 
@@ -96,8 +93,8 @@ export default function Page() {
             calculateRemaining(totalIncome, totalExpense) < 0
               ? "bg-red-400"
               : calculateRemaining(totalIncome, totalExpense) >= 50
-              ? "bg-green-400"
-              : "bg-yellow-400"
+                ? "bg-green-400"
+                : "bg-yellow-400"
           }`}
         >
           <h2 className="text-lg font-semibold text-gray-700">Sobra</h2>
