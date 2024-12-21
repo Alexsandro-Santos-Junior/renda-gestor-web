@@ -1,4 +1,10 @@
-import { CreditCardIcon, HomeIcon, RocketIcon } from "lucide-react";
+import {
+  CreditCardIcon,
+  HomeIcon,
+  RocketIcon,
+  BadgeDollarSign,
+  Receipt,
+} from "lucide-react";
 
 export const navigationItems = [
   {
@@ -16,13 +22,13 @@ export const navigationItems = [
   {
     title: "Rendas",
     href: "/income",
-    icon: RocketIcon,
+    icon: Receipt,
     roles: "",
   },
   {
     title: "Patrimonios",
     href: "/asset",
-    icon: RocketIcon,
+    icon: BadgeDollarSign,
     roles: "",
   },
   {

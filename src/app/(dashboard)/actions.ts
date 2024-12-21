@@ -86,7 +86,6 @@ export async function getExpenseDetails() {
 
     return expenseDetails;
   } catch (error) {
-    console.error("Erro ao buscar detalhes das despesas:", error);
     throw error;
   }
 }
