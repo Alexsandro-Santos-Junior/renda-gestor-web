@@ -3,10 +3,11 @@
 import { Asset, Expense, Income } from "./types";
 import { auth } from "@clerk/nextjs/server";
 
+//atualizar aqui
 export async function getIncome(): Promise<Income[]> {
   const { getToken } = auth();
   const token = await getToken();
-  // console.log("Token obtido:", token);
+
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/income`,
